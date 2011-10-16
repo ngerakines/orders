@@ -1,0 +1,43 @@
+{{>header.mustache}}
+<div class="container">
+	<div class="page-header">
+		<h1>Create a new company</h1>
+	</div>
+	<div class="row">
+		<div class="span8">
+			<form method="POST">
+				<div class="clearfix">
+					<label for="name">Name</label>
+					<div class="input">
+						<input class="xlarge" id="name" name="name" size="30" type="text" />
+					</div>
+				</div>
+				<div class="clearfix">
+					<label for="disabledInput">Address</label>
+					<div class="input">
+						<textarea class="xlarge" name="address" id="address" rows="3"></textarea>
+					</div>
+				</div>
+				<div class="clearfix">
+					<label for="phone">Phone Number</label>
+					<div class="input">
+						<input class="xlarge" id="phone" name="phone" size="30" type="text" />
+					</div>
+				</div>
+				<div class="clearfix">
+					<label for="url">Website</label>
+					<div class="input">
+						<input class="xlarge" id="url" name="url" size="30" type="text" />
+					</div>
+				</div>
+				<div class="actions">
+					<input type="submit" class="btn primary" value="Save changes">&nbsp;<button type="reset" class="btn">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<footer>
+		<p>&copy; Company 2011</p>
+	</footer>
+</div>
+{{>footer.mustache}}

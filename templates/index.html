@@ -1,0 +1,86 @@
+{{>header.mustache}}
+		<div class="container-fluid">
+			<div class="sidebar">
+				<div class="well">
+					<h5>Past Orders</h5>
+					<ul>
+{{#Orders}}
+						<li><a href="/order?id={{Id}}">{{Name}}</a></li>
+{{/Orders}}
+					</ul>
+					<p><a class="btn" href="/order/create">Create Order</a></p>
+				</div>
+			</div>
+			<div class="content">
+				<div class="page-header">
+					<h1>Current Order Information <small>October 2011</small></h1>
+				</div>
+				<div class="row">
+					<div class="span5">
+						<p>
+							<address>
+								<strong>Cattaneo Brothers</strong><br />
+								795 Folsom Ave, Suite 600<br />
+								San Francisco, CA 94107<br />
+								<abbr title="Phone">P:</abbr> (123) 456-7890<br/>
+								<a href="http://www.cattaneobros.com/">http://www.cattaneobros.com/</a>
+							</address>
+						</p>
+						<p><a class="btn" href="#">Add to Order &raquo;</a></p>
+					</div>
+					<div class="span8">
+						<table class="zebra-striped">
+							<tr>
+								<td>Poll Opened</td>
+								<td>10/3/2011</td>
+							</tr>
+							<tr>
+								<td>Poll Closed</td>
+								<td>10/8/2011</td>
+							</tr>
+							<tr>
+								<td>Order period opened</td>
+								<td>10/8/2011</td>
+							</tr>
+							<tr>
+								<td>Order period closed</td>
+								<td>10/15/2011</td>
+							</tr>
+							<tr>
+								<td>Order sent</td>
+								<td>10/15/2011</td>
+							</tr>
+							<tr>
+								<td>Order received</td>
+								<td>10/15/2011</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<hr />
+
+				<!-- Example row of columns -->
+				<div class="row">
+					<div class="span6">
+						<h2>Participants</h2>
+						<ul>
+							<li><a href="#">Nick Gerakines</a> $50</li>
+							<li><a href="#">Nick Gerakines</a> $50</li>
+							<li><a href="#">Nick Gerakines</a> $50</li>
+							<li><a href="#">Nick Gerakines</a> $50</li>
+							<li><a href="#">Nick Gerakines</a> $50</li>
+							<li><a href="#">Nick Gerakines</a> $50</li>
+							<li><a href="#">Nick Gerakines</a> $50</li>
+						</ul>
+					</div>
+					<div class="span5">
+						<h2>Shipping Information</h2>
+						<p><em>None</em></p>
+					</div>
+				</div>
+				<footer>
+					<p>&copy; Nick Gerakines 2011</p>
+				</footer>
+			</div>
+		</div>
+{{>footer.mustache}}

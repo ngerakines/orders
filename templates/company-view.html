@@ -1,0 +1,23 @@
+{{>header.mustache}}
+<div class="container">
+{{#Company}}
+	<div class="row">
+		<div class="span4">
+			<p>
+				<address>
+					<strong>{{Name}}</strong><br />
+{{#AddressLines}}
+{{.}}<br/>
+{{/AddressLines}}
+					<abbr title="Phone">P:</abbr> {{Phone}}<br/>
+					<a href="{{Url}}">{{Url}}</a>
+				</address>
+			</p>
+		</div>
+	</div>
+{{/Company}}
+	<footer>
+		<p>&copy; Company 2011</p>
+	</footer>
+</div>
+{{>footer.mustache}}

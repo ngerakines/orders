@@ -1,0 +1,38 @@
+{{>header.mustache}}
+<div class="container">
+	<div class="page-header">
+		<h1>Create a new order</h1>
+	</div>
+	<div class="row">
+		<div class="span8">
+			<form method="POST">
+				<div class="clearfix">
+					<label for="name">Name</label>
+					<div class="input">
+						<input class="xlarge" id="name" name="name" size="30" type="text" />
+					</div>
+				</div>
+				<div class="clearfix">
+					<label for="companyField">Company</label>
+					<div class="input">
+						<select name="company" id="company">
+{{#Companies}}
+							<option value="{{Id}}">{{Name}}</option>
+{{/Companies}}
+						</select>
+			              <span class="help-inline"><a href="/company/create">Create</a></span>
+					</div>
+					<!-- /company/create -->
+				</div>
+				<div class="actions">
+					<input type="submit" class="btn primary" value="Create">&nbsp;
+					<button type="reset" class="btn">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<footer>
+		<p>&copy; Company 2011</p>
+	</footer>
+</div>
+{{>footer.mustache}}
