@@ -11,6 +11,7 @@ GOFILES=\
 	src/company.go\
 	src/order.go\
 	src/event.go\
-	src/line.go
+	src/line.go\
+	src/customer.go
 
 include $(GOROOT)/src/Make.cmd

@@ -55,7 +55,6 @@ func getCompany(id string) (company *Company, err os.Error) {
 	}
 	db.FreeResult()
 	return company, nil
-	
 }
 
 func listCompanies() []Company {

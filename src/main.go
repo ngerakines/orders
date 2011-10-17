@@ -21,6 +21,9 @@ func indexHandler(req *web.Request) {
 	orders := listOrders()
 	params := make(map[string]interface{})
 	params["Orders"] = orders
+	if len(orders) > 0 {
+		params["LastOrder"] = orders[0]
+	}
 
 	io.WriteString(w, RenderFile("templates/index.html", params))
 }
@@ -58,6 +61,9 @@ func viewOrderHandler(req *web.Request) {
 	log.Println(order)
 	params := make(map[string]interface{})
 	params["Order"] = order
+	customers := getCustomers()
+	log.Println(customers)
+	params["Customers"] = customers
 	io.WriteString(w, RenderFile("templates/order-view.html", params))
 }
 
@@ -104,6 +110,17 @@ func createEventHandler(req *web.Request) {
 	req.Redirect("/order/?id=" + orderId, false)
 }
 
+// Customer
+
+func createCustomerHandler(req *web.Request) {
+	orderId := req.Param.Get("order")
+	name := req.Param.Get("name")
+	email := req.Param.Get("email")
+	id := NewUUID()
+	storeCustomer(id.String(), name, email)
+	req.Redirect("/order/?id=" + orderId, false)
+}
+
 // Line
 
 func createLineHandler(req *web.Request) {
@@ -141,6 +158,7 @@ func main() {
 			Register("/order/create", "GET", createOrderFormHandler, "POST", createOrderHandler).
 			Register("/order/", "GET", viewOrderHandler).
 			Register("/event/create", "POST", createEventHandler).
+			Register("/customer/create", "POST", createCustomerHandler).
 			Register("/line/create", "POST", createLineHandler).
 			Register("/static/<path:.*>", "GET", web.DirectoryHandler("./static/", new(web.ServeFileOptions))))
 	server.Run(port, h)
