@@ -146,7 +146,7 @@ func main() {
 	}
 
 	port := ":8080"
-	if envPort := os.Getenv("GOBOOK_PORT"); envPort != "" {
+	if envPort := os.Getenv("ORDERS_PORT"); envPort != "" {
 		port = envPort
 	}
 
