@@ -58,11 +58,9 @@ func viewOrderHandler(req *web.Request) {
 		io.WriteString(w, "ERROR: " + err.String())
 		return
 	}
-	log.Println(order)
 	params := make(map[string]interface{})
 	params["Order"] = order
 	customers := getCustomers()
-	log.Println(customers)
 	params["Customers"] = customers
 	io.WriteString(w, RenderFile("templates/order-view.html", params))
 }
@@ -121,6 +119,28 @@ func createCustomerHandler(req *web.Request) {
 	req.Redirect("/order/?id=" + orderId, false)
 }
 
+func viewCustomerHandler(req *web.Request) {
+	w := req.Respond(web.StatusOK, web.HeaderContentType, "text/html; charset=\"utf-8\"")
+
+	id := req.Param.Get("id")
+	customer, err := getCustomer(id)
+	if err != nil {
+		io.WriteString(w, "ERROR: " + err.String())
+		return
+	}
+
+	params := make(map[string]interface{})
+	params["Customer"] = customer
+	io.WriteString(w, RenderFile("templates/customer-view.html", params))
+}
+
+func paidHandler(req *web.Request) {
+	orderId := req.Param.Get("order")
+	customerId := req.Param.Get("customer")
+	payLines(orderId, customerId)
+	req.Redirect("/order/?id=" + orderId, false)
+}
+
 // Line
 
 func createLineHandler(req *web.Request) {
@@ -159,6 +179,8 @@ func main() {
 			Register("/order/", "GET", viewOrderHandler).
 			Register("/event/create", "POST", createEventHandler).
 			Register("/customer/create", "POST", createCustomerHandler).
+			Register("/customer/", "GET", viewCustomerHandler).
+			Register("/customer/paid/", "GET", paidHandler).
 			Register("/line/create", "POST", createLineHandler).
 			Register("/static/<path:.*>", "GET", web.DirectoryHandler("./static/", new(web.ServeFileOptions))))
 	server.Run(port, h)

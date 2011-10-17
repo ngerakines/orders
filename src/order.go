@@ -105,7 +105,6 @@ func listOrders() []Order {
 
 func getOrderTotal(id string) float64 {
 	query := "select sum(quantity * price) from line where order_id = \"" + id + "\""
-	log.Println(query)
 	dberr := db.Query(query)
 	if dberr != nil {
 		log.Println(dberr)
@@ -126,4 +125,53 @@ func getOrderTotal(id string) float64 {
 	}
 	db.FreeResult()
 	return 0
+}
+
+func getOrderTotalForCustomer(orderId, customerId string) float64 {
+	query := "select sum(quantity * price) from line  where order_id = \"" + orderId + "\" AND customer = \"" + customerId + "\""
+	dberr := db.Query(query)
+	if dberr != nil {
+		log.Println(dberr)
+	    return 0
+	}
+	result, dberr := db.StoreResult()
+	if dberr != nil {
+		log.Println(dberr)
+	    return 0
+	}
+	if count := result.RowCount(); count == 1 {
+		var value float64
+		for _, row := range result.FetchRows() {
+			value = row[0].(float64)
+		}
+		db.FreeResult()
+		return value
+	}
+	db.FreeResult()
+	return 0
+}
+
+func getCustomerOrders(id string) []Order {
+	query := "select * from orders where id in (select distinct order_id from line where customer = \"" + id + "\")";
+	err := db.Query(query)
+	if err != nil {
+		log.Println(err)
+	    return make([]Order, 0)
+	}
+	result, err := db.StoreResult()
+	if err != nil {
+		log.Println(err)
+	    return make([]Order, 0)
+	}
+	orders := make([]Order, result.RowCount())
+	for index, row := range result.FetchRows() {
+		var order Order
+		order.Id = row[0].(string)
+		order.Name = row[1].(string)
+		order.CompanyId = row[2].(string)
+		orders[index] = order
+	}
+	db.FreeResult()
+
+	return orders
 }

@@ -131,13 +131,12 @@
 	</div>
 	<hr />
 
-	<!-- Example row of columns -->
 	<div class="row">
 		<div class="span16">
 			<h2>Participants</h2>
 			<ul>
 {{#CustomerSummary}}
-				<li><a href="#">{{>customer_widget.html}}</a> ${{Total}}</li>
+				<li><a href="/customer/?id={{Id}}">{{>customer_widget.html}}</a> ${{Total}}</li>
 {{/CustomerSummary}}
 			</ul>
 		</div>
@@ -153,6 +152,7 @@
 					<td>{{Name}}</td>
 					<td>{{Quantity}}</td>
 					<td>${{Price}}</td>
+					<td>{{Paid}}</td>
 				</tr>
 {{/Lines}}
 			</table>

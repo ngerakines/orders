@@ -46,7 +46,6 @@ func getCompany(id string) (company *Company, err os.Error) {
 		if row == nil {
 			break
 		}
-		log.Println(row)
 		company.Id = row["id"].(string)
 		company.Name = row["name"].(string)
 		company.Address = string([]uint8( row["address"].([]uint8)  ))

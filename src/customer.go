@@ -11,6 +11,35 @@ type Customer struct {
 	Total float64
 }
 
+type CustomerOrder struct {
+	CustomerId, OrderId, OrderName string
+}
+
+type CustomerOrderLines struct {
+	CustomerId, OrderId, LineId string
+}
+
+func (customer Customer) Orders() []CustomerOrder {
+	orders := getCustomerOrders(customer.Id)
+	customerOrders := make([]CustomerOrder, len(orders))
+	for index, order := range orders {
+		var customerOrder CustomerOrder
+		customerOrder.CustomerId = customer.Id
+		customerOrder.OrderId = order.Id
+		customerOrder.OrderName = order.Name
+		customerOrders[index] = customerOrder
+	}
+	return customerOrders
+}
+
+func (customerOrder CustomerOrder) Total() float64 {
+	return getOrderTotalForCustomer(customerOrder.OrderId, customerOrder.CustomerId)
+}
+
+func (customerOrder CustomerOrder) Lines() []Line {
+	return  getLinesByOrderAndCustomer(customerOrder.OrderId, customerOrder.CustomerId)
+}
+
 func storeCustomer(id, name, email string) {
 	stmt, err := db.Prepare("insert into customer values (?, ?, ?)")
 	if err != nil {
